@@ -11,9 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RagNet.Samples.ServiceDefaults\RagNet.Samples.ServiceDefaults.csproj" />
-    <ProjectReference Include="..\RagNet\RagNet.csproj" />
-    <ProjectReference Include="..\RagNet.SemanticKernel\RagNet.SemanticKernel.csproj" />
+    <ProjectReference Include="..\RagNet.Samples.WebApi.ServiceDefaults\RagNet.Samples.WebApi.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\..\RagNet\RagNet.csproj" />
+    <ProjectReference Include="..\..\..\RagNet.SemanticKernel\RagNet.SemanticKernel.csproj" />
   </ItemGroup>
 
 </Project>

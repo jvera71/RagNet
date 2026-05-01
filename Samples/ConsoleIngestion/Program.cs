@@ -11,6 +11,15 @@ var builder = Host.CreateApplicationBuilder(args);
 // Logging configuration to see progress in the console
 builder.Logging.AddConsole();
 
+// Configure Aspire Service Defaults (Telemetry, Resilience, HealthChecks)
+builder.AddServiceDefaults();
+
+// Add RagNet Telemetry Instrumentation to push traces to Aspire Dashboard
+builder.Services.AddOpenTelemetry().WithTracing(tracing =>
+{
+    tracing.AddRagNetInstrumentation();
+});
+
 // 1. Configure RagNet with the IngestionPipeline
 builder.Services.AddAdvancedRag(rag =>
 {
