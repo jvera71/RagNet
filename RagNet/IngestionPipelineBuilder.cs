@@ -105,4 +105,12 @@ public class IngestionPipelineBuilder
         // For brevity, assuming it configures a factory or provider.
         return this;
     }
+
+    /// <summary>
+    /// Validates and finalizes ingestion configuration.
+    /// </summary>
+    internal void Build()
+    {
+        // Optional validation or delayed registrations can occur here.
+    }
 }
