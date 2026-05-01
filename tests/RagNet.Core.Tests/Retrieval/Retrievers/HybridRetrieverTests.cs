@@ -34,7 +34,7 @@ public class HybridRetrieverTests
                     new Dictionary<string, object> { ["_score"] = 0.70 })
             });
 
-        var options = Options.Create(new HybridRetrieverOptions 
+        var options = Microsoft.Extensions.Options.Options.Create(new HybridRetrieverOptions 
         { 
             Alpha = 0.5,
             ExpandedTopK = 10,

@@ -13,7 +13,7 @@ public class NLPBoundaryChunkerTests
     public async Task ChunkAsync_SplitsOnSemanticBoundary_ReturnsMultipleChunks()
     {
         // Arrange
-        var options = Options.Create(new NLPBoundaryChunkerOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new NLPBoundaryChunkerOptions
         {
             MaxChunkSize = 30, // Small chunk size to force splitting
             MinChunkSize = 10,
@@ -49,10 +49,10 @@ public class NLPBoundaryChunkerTests
     public async Task ChunkAsync_RespectsOverlap()
     {
         // Arrange
-        var options = Options.Create(new NLPBoundaryChunkerOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new NLPBoundaryChunkerOptions
         {
-            MaxChunkSize = 30, // Force split
-            MinChunkSize = 10,
+            MaxChunkSize = 5, // Force split frequently
+            MinChunkSize = 2,
             OverlapSentences = 1,
             IncludeSectionTitle = false
         });

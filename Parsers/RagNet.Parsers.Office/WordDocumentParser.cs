@@ -42,7 +42,7 @@ public class WordDocumentParser : IDocumentParser
             currentSectionStack.Push(rootNode);
 
             using var wordDocument = WordprocessingDocument.Open(documentStream, false);
-            var body = wordDocument.MainDocumentPart?.Document.Body;
+            var body = wordDocument.MainDocumentPart?.Document?.Body;
 
             if (body == null) return rootNode;
 

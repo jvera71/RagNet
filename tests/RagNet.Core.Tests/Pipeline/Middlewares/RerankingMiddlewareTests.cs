@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Moq;
 using RagNet.Abstractions;
+using RagNet.Core.Pipeline;
 using RagNet.Core.Pipeline.Middlewares;
 using Xunit;
 
@@ -39,9 +40,10 @@ public class RerankingMiddlewareTests
         RagPipelineDelegate next = ctx =>
         {
             nextInvoked = true;
-            ctx.RetrievedDocuments.Should().HaveCount(2);
-            ctx.RetrievedDocuments[0].Id.Should().Be("doc-3");
-            ctx.RetrievedDocuments[1].Id.Should().Be("doc-1");
+            var docs = ctx.RetrievedDocuments.ToList();
+            docs.Should().HaveCount(2);
+            docs[0].Id.Should().Be("doc-3");
+            docs[1].Id.Should().Be("doc-1");
             return Task.FromResult(new RagResponse { Answer = "done" });
         };
 

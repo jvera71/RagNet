@@ -1,6 +1,7 @@
 using System.Text;
 using Markdig;
 using Markdig.Syntax;
+using Markdig.Syntax.Inlines;
 using RagNet.Abstractions;
 
 namespace RagNet.Parsers.Markdown;
@@ -62,10 +63,19 @@ public class MarkdownDocumentParser : IDocumentParser
         {
             var level = headingBlock.Level;
             
-            // Pop sections from stack until we find a parent with a lower level
-            while (sectionStack.Count > 1 && sectionStack.Peek().Level >= level)
+            // Pop sections from stack until we find a parent with a lower level.
+            // Special rule: Level 1 and Level 2 headings are both treated as top-level siblings under the root.
+            while (sectionStack.Count > 1)
             {
-                sectionStack.Pop();
+                var parentLevel = sectionStack.Peek().Level;
+                if ((level <= 2 && parentLevel > 0) || (parentLevel >= level))
+                {
+                    sectionStack.Pop();
+                }
+                else
+                {
+                    break;
+                }
             }
 
             newNode = new DocumentNode
@@ -112,21 +122,46 @@ public class MarkdownDocumentParser : IDocumentParser
 
     private string ExtractTextFromBlock(Block block)
     {
-        if (block is LeafBlock leafBlock && leafBlock.Lines.Lines != null)
+        if (block is LeafBlock leafBlock)
         {
-            var sb = new StringBuilder();
-            foreach (var line in leafBlock.Lines.Lines)
+            if (leafBlock.Inline != null)
             {
-                if (line.Slice.Text != null)
-                {
-                    sb.AppendLine(line.Slice.ToString());
-                }
+                var sb = new StringBuilder();
+                AppendInlines(leafBlock.Inline, sb);
+                return sb.ToString().Trim();
             }
-            return sb.ToString().Trim();
+
+            if (leafBlock.Lines.Lines != null)
+            {
+                return leafBlock.Lines.ToString().Trim();
+            }
         }
         
         // For container blocks like lists, quote blocks, a more recursive extraction would be needed.
         // Simplified here for the core structure.
         return string.Empty; 
+    }
+
+    private void AppendInlines(ContainerInline container, StringBuilder sb)
+    {
+        foreach (var inline in container)
+        {
+            if (inline is LiteralInline literal)
+            {
+                sb.Append(literal.Content.ToString());
+            }
+            else if (inline is ContainerInline childContainer)
+            {
+                AppendInlines(childContainer, sb);
+            }
+            else if (inline is LineBreakInline)
+            {
+                sb.AppendLine();
+            }
+            else
+            {
+                sb.Append(inline.ToString());
+            }
+        }
     }
 }

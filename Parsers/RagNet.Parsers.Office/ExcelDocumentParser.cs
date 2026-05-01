@@ -43,7 +43,7 @@ public class ExcelDocumentParser : IDocumentParser
             var sharedStringTablePart = workbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
             var sharedStringTable = sharedStringTablePart?.SharedStringTable;
 
-            var sheets = workbookPart.Workbook.Sheets?.Elements<Sheet>();
+            var sheets = workbookPart.Workbook?.Sheets?.Elements<Sheet>();
             if (sheets == null) return rootNode;
 
             foreach (var sheet in sheets)
@@ -60,7 +60,7 @@ public class ExcelDocumentParser : IDocumentParser
                 };
 
                 var worksheetPart = (WorksheetPart?)workbookPart.GetPartById(sheet.Id!);
-                var sheetData = worksheetPart?.Worksheet.Elements<SheetData>().FirstOrDefault();
+                var sheetData = worksheetPart?.Worksheet?.Elements<SheetData>().FirstOrDefault();
 
                 if (sheetData != null)
                 {

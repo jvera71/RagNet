@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Moq;
 using RagNet.Abstractions;
+using RagNet.Core.Pipeline;
 using RagNet.Core.Pipeline.Middlewares;
 using Xunit;
 
