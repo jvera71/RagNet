@@ -81,8 +81,8 @@ public class LLMMetadataEnricher : IMetadataEnricher
 
         try
         {
-            var response = await _chatClient.CompleteAsync(prompt, cancellationToken: ct);
-            var responseText = response.Message.Text ?? string.Empty;
+            var response = await _chatClient.GetResponseAsync(prompt, cancellationToken: ct);
+            var responseText = response.Text ?? string.Empty;
 
             // Extract JSON from response (handling potential markdown blocks)
             var json = ExtractJson(responseText);

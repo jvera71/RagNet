@@ -119,7 +119,7 @@ public class RagPipelineBuilder
     public RagPipelineBuilder Use(
         Func<RagPipelineContext, Func<RagPipelineContext, Task<RagResponse>>, Task<RagResponse>> middleware)
     {
-        _middlewares.Add(next => ctx => middleware(ctx, next));
+        _middlewares.Add(next => ctx => middleware(ctx, c => next(c)));
         return this;
     }
 

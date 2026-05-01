@@ -35,8 +35,8 @@ Respond ONLY with the generalized question, without any explanations.
 Specific question: ""{originalQuery}""
 Generalized question:";
 
-        var response = await _chatClient.CompleteAsync(prompt, cancellationToken: ct);
-        var generalizedQuery = response.Message.Text?.Trim();
+        var response = await _chatClient.GetResponseAsync(prompt, cancellationToken: ct);
+        var generalizedQuery = response.Text?.Trim();
 
         var queries = new List<string> { originalQuery };
 

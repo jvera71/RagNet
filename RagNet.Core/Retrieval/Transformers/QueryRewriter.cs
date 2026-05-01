@@ -35,8 +35,8 @@ Respond ONLY with the rewritten query, without any explanations.
 Original query: ""{originalQuery}""
 Rewritten query:";
 
-        var response = await _chatClient.CompleteAsync(prompt, cancellationToken: ct);
-        var rewrittenQuery = response.Message.Text?.Trim() ?? originalQuery;
+        var response = await _chatClient.GetResponseAsync(prompt, cancellationToken: ct);
+        var rewrittenQuery = response.Text?.Trim() ?? originalQuery;
 
         return new[] { rewrittenQuery };
     }

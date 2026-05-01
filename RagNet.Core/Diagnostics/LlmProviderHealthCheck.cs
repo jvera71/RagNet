@@ -30,9 +30,9 @@ public class LlmProviderHealthCheck : IHealthCheck
     {
         try
         {
-            var response = await _chatClient.CompleteAsync("Reply with OK", cancellationToken: ct);
+            var response = await _chatClient.GetResponseAsync("Reply with OK", cancellationToken: ct);
 
-            return response.Message.Text is not null
+            return response.Text is not null
                 ? HealthCheckResult.Healthy("LLM provider is responsive")
                 : HealthCheckResult.Degraded("LLM responded with empty message");
         }

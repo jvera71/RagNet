@@ -16,7 +16,7 @@ public class IngestionPipeline : IIngestionPipeline
     private readonly ISemanticChunker _chunker;
     private readonly IMetadataEnricher? _enricher;
     private readonly IEmbeddingGenerator<string, Embedding<float>>? _embeddingGenerator;
-    private readonly IVectorStoreRecordCollection<string, DefaultRagVectorRecord> _vectorCollection;
+    private readonly VectorStoreCollection<string, DefaultRagVectorRecord> _vectorCollection;
     private readonly EmbeddingBatcher _embeddingBatcher;
 
     /// <summary>
@@ -25,7 +25,7 @@ public class IngestionPipeline : IIngestionPipeline
     public IngestionPipeline(
         IEnumerable<IDocumentParser> parsers,
         ISemanticChunker chunker,
-        IVectorStoreRecordCollection<string, DefaultRagVectorRecord> vectorCollection,
+        VectorStoreCollection<string, DefaultRagVectorRecord> vectorCollection,
         IMetadataEnricher? enricher = null,
         IEmbeddingGenerator<string, Embedding<float>>? embeddingGenerator = null,
         EmbeddingBatcher? embeddingBatcher = null)
@@ -84,7 +84,7 @@ public class IngestionPipeline : IIngestionPipeline
 
             // 7. Store
             // Make sure collection exists
-            await _vectorCollection.CreateCollectionIfNotExistsAsync(cancellationToken: ct);
+            await _vectorCollection.EnsureCollectionExistsAsync(cancellationToken: ct);
 
             // Upsert documents
             foreach (var record in mappedRecords)

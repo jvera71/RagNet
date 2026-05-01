@@ -5,8 +5,7 @@ using RagNet.SemanticKernel.Options;
 namespace RagNet.SemanticKernel;
 
 /// <summary>
-/// Manages the context window size, ensuring the retrieved documents
-/// fit within the LLM's token limit.
+/// Manages the context window to ensure the retrieved documents fit within the LLM's limit.
 /// </summary>
 public class ContextWindowManager
 {
@@ -19,8 +18,7 @@ public class ContextWindowManager
     /// <param name="options">The generator options containing limits.</param>
     public ContextWindowManager(SemanticKernelGeneratorOptions options)
     {
-        // Fallback to a basic tokenizer if Tiktoken is unavailable for the model.
-        // In a real scenario, you'd handle loading correctly.
+        // Use Tiktoken for token counting
         _tokenizer = TiktokenTokenizer.CreateForModel(options.TokenizerModel);
         _maxContextTokens = options.MaxContextTokens;
     }

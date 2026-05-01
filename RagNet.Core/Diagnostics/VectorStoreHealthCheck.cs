@@ -9,13 +9,13 @@ namespace RagNet.Core.Diagnostics;
 /// </summary>
 public class VectorStoreHealthCheck : IHealthCheck
 {
-    private readonly IVectorStore _vectorStore;
+    private readonly VectorStore _vectorStore;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="VectorStoreHealthCheck"/> class.
     /// </summary>
     /// <param name="vectorStore">The vector store to check.</param>
-    public VectorStoreHealthCheck(IVectorStore vectorStore)
+    public VectorStoreHealthCheck(VectorStore vectorStore)
     {
         _vectorStore = vectorStore;
     }

@@ -3,7 +3,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Prompts;
 using RagNet.Abstractions;
 using RagNet.SemanticKernel.Options;
 
@@ -176,23 +175,27 @@ public class SemanticKernelRagGenerator : IRagGenerator
     {
         return context.Select((doc, index) => new Citation(
             DocumentId: doc.Id,
-            Source: doc.Metadata.GetValueOrDefault("source", "Unknown")?.ToString() ?? "Unknown",
-            Snippet: doc.Content.Length > 200 ? doc.Content[..200] + "..." : doc.Content,
-            ReferenceNumber: index + 1
+            SourceContent: doc.Content.Length > 200 ? doc.Content[..200] + "..." : doc.Content,
+            RelevanceScore: (double)(doc.Metadata.GetValueOrDefault("_score", 0.0) ?? 0.0),
+            Metadata: new Dictionary<string, object>(doc.Metadata)
+            {
+                ["source"] = doc.Metadata.GetValueOrDefault("source", "Unknown")?.ToString() ?? "Unknown",
+                ["referenceNumber"] = index + 1
+            }
         )).ToList();
     }
 
     private async Task<RagResponse> ValidateSelfRag(
         RagResponse response, IEnumerable<RagDocument> context, CancellationToken ct)
     {
-        var validationPrompt = $"""
+        var validationPrompt = $$"""
             Analyze the following answer and verify that each claim is supported by the provided context.
 
             CONTEXT:
-            {FormatContext(context)}
+            {{FormatContext(context)}}
 
             ANSWER TO VALIDATE:
-            {response.Answer}
+            {{response.Answer}}
 
             For each claim in the answer, indicate:
             - "SUPPORTED" if it is supported by the context
@@ -200,7 +203,7 @@ public class SemanticKernelRagGenerator : IRagGenerator
             - "PARTIAL" if it is partially supported
 
             Respond ONLY in JSON format like this:
-            [{{"claim": "...", "status": "SUPPORTED|NOT_SUPPORTED|PARTIAL", "evidence": "fragment from context"}}]
+            [{"claim": "...", "status": "SUPPORTED|NOT_SUPPORTED|PARTIAL", "evidence": "fragment from context"}]
             """;
 
         try
@@ -233,7 +236,7 @@ public class SemanticKernelRagGenerator : IRagGenerator
         return contextBuilder.ToString();
     }
 
-    private IReadOnlyDictionary<string, object> CollectMetadata(FunctionResult result)
+    private Dictionary<string, object> CollectMetadata(FunctionResult result)
     {
         // Extract metadata from the result if available (like token usage)
         var metadata = new Dictionary<string, object>();

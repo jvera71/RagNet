@@ -36,8 +36,8 @@ Do not include any introductory phrases, just the documentation text.
 Question: ""{originalQuery}""
 Documentation paragraph:";
 
-        var response = await _chatClient.CompleteAsync(prompt, cancellationToken: ct);
-        var hypotheticalDocument = response.Message.Text?.Trim();
+        var response = await _chatClient.GetResponseAsync(prompt, cancellationToken: ct);
+        var hypotheticalDocument = response.Text?.Trim();
 
         // If the LLM fails to generate something meaningful, fallback to the original query
         if (string.IsNullOrWhiteSpace(hypotheticalDocument))

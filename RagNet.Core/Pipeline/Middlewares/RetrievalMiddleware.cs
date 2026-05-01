@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using OpenTelemetry.Trace;
 using RagNet.Abstractions;
 using RagNet.Core.Diagnostics;
 
@@ -85,7 +86,7 @@ public class RetrievalMiddleware
         catch (Exception ex)
         {
             activity?.SetStatus(ActivityStatusCode.Error, ex.Message);
-            activity?.RecordException(ex);
+            activity?.AddException(ex);
             throw;
         }
     }

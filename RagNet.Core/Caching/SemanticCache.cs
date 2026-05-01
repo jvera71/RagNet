@@ -11,7 +11,7 @@ namespace RagNet.Core.Caching;
 public class SemanticCache
 {
     private readonly IEmbeddingGenerator<string, Embedding<float>> _embeddings;
-    private readonly IVectorStoreRecordCollection<string, CacheRecord> _cache;
+    private readonly VectorStoreCollection<string, CacheRecord> _cache;
     private readonly double _similarityThreshold;
 
     /// <summary>
@@ -19,7 +19,7 @@ public class SemanticCache
     /// </summary>
     public SemanticCache(
         IEmbeddingGenerator<string, Embedding<float>> embeddings,
-        IVectorStoreRecordCollection<string, CacheRecord> cache,
+        VectorStoreCollection<string, CacheRecord> cache,
         double similarityThreshold = 0.95)
     {
         _embeddings = embeddings;
@@ -36,10 +36,15 @@ public class SemanticCache
         var queryVector = await _embeddings.GenerateAsync(query, cancellationToken: ct);
 
         // 2. Search cache by vector similarity
-        var searchOptions = new VectorSearchOptions { Top = 1 };
-        var results = await _cache.VectorizedSearchAsync(queryVector.First().Vector, searchOptions, ct);
+        var searchOptions = new VectorSearchOptions<CacheRecord>();
+        var results = _cache.SearchAsync(queryVector.Vector, 1, searchOptions, ct);
 
-        var bestMatch = await results.Results.FirstOrDefaultAsync(ct);
+        VectorSearchResult<CacheRecord>? bestMatch = null;
+        await foreach (var res in results.WithCancellation(ct))
+        {
+            bestMatch = res;
+            break;
+        }
 
         // 3. If similarity exceeds the threshold, return the cached response
         if (bestMatch != null && bestMatch.Score >= _similarityThreshold)
@@ -60,7 +65,7 @@ public class SemanticCache
         await _cache.UpsertAsync(new CacheRecord
         {
             Id = Guid.NewGuid().ToString(),
-            QueryVector = queryVector.First().Vector,
+            QueryVector = queryVector.Vector,
             ResponseJson = JsonSerializer.Serialize(response),
             CreatedAt = DateTimeOffset.UtcNow
         }, cancellationToken: ct);
@@ -72,15 +77,15 @@ public class SemanticCache
 /// </summary>
 public class CacheRecord
 {
-    [VectorStoreRecordKey]
+    [VectorStoreKey]
     public string Id { get; set; } = string.Empty;
 
-    [VectorStoreRecordVector(Dimensions = 1536, DistanceFunction.CosineSimilarity)]
+    [VectorStoreVector(1536, DistanceFunction = DistanceFunction.CosineSimilarity)]
     public ReadOnlyMemory<float> QueryVector { get; set; }
 
-    [VectorStoreRecordData]
+    [VectorStoreData]
     public string ResponseJson { get; set; } = string.Empty;
 
-    [VectorStoreRecordData]
+    [VectorStoreData]
     public DateTimeOffset CreatedAt { get; set; }
 }

@@ -57,8 +57,8 @@ DOCUMENTS:
         try
         {
             // 2. Ask LLM to score
-            var response = await _chatClient.CompleteAsync(prompt, cancellationToken: ct);
-            var json = ExtractJson(response.Message.Text ?? string.Empty);
+            var response = await _chatClient.GetResponseAsync(prompt, cancellationToken: ct);
+            var json = ExtractJson(response.Text ?? string.Empty);
             
             if (string.IsNullOrEmpty(json)) return docList.Take(topK);
 

@@ -10,13 +10,13 @@ namespace RagNet.Core.Retrieval.Retrievers;
 /// </summary>
 public class KeywordRetriever : IRetriever
 {
-    private readonly IVectorStoreRecordCollection<string, DefaultRagVectorRecord> _collection;
+    private readonly VectorStoreCollection<string, DefaultRagVectorRecord> _collection;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="KeywordRetriever"/> class.
     /// </summary>
     /// <param name="collection">The vector store collection.</param>
-    public KeywordRetriever(IVectorStoreRecordCollection<string, DefaultRagVectorRecord> collection)
+    public KeywordRetriever(VectorStoreCollection<string, DefaultRagVectorRecord> collection)
     {
         _collection = collection;
     }
@@ -37,7 +37,7 @@ public class KeywordRetriever : IRetriever
         // In a real provider like Azure AI Search, we would pass the text query in the options.
 
         // Simulated/Placeholder for compilation:
-        var filter = new VectorSearchFilter().EqualTo(nameof(DefaultRagVectorRecord.Content), query);
+        // var filter = new VectorSearchFilter().EqualTo(nameof(DefaultRagVectorRecord.Content), query);
         
         // This is a placeholder since pure Keyword search requires a specific FTS provider.
         // We'll return an empty list here to satisfy the contract, but in reality, 

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
+using OpenTelemetry.Trace;
 using RagNet.Abstractions;
 using RagNet.Core.Diagnostics;
 
@@ -21,7 +22,7 @@ public class DefaultRagPipeline : IRagPipeline
     /// <param name="pipeline">The composed pipeline delegate.</param>
     /// <param name="logger">Optional logger for structured logging.</param>
     /// <param name="pipelineName">The name of the pipeline.</param>
-    internal DefaultRagPipeline(
+    public DefaultRagPipeline(
         RagPipelineDelegate pipeline, 
         ILogger<DefaultRagPipeline>? logger = null,
         string pipelineName = "default")
@@ -74,7 +75,7 @@ public class DefaultRagPipeline : IRagPipeline
         catch (Exception ex)
         {
             activity?.SetStatus(ActivityStatusCode.Error, ex.Message);
-            activity?.RecordException(ex);
+            activity?.AddException(ex);
             
             _logger?.LogError(ex, 
                 "RagNet pipeline '{PipelineName}' failed: {ErrorMessage}", 

@@ -31,9 +31,9 @@ public class TranslationTransformer : IQueryTransformer
     {
         var prompt = $"Translate the following to English. Reply with ONLY the translation:\n\"{originalQuery}\"";
         
-        var response = await _chatClient.CompleteAsync(prompt, cancellationToken: ct);
+        var response = await _chatClient.GetResponseAsync(prompt, cancellationToken: ct);
         
-        var translated = response.Message.Text?.Trim() ?? originalQuery;
+        var translated = response.Text?.Trim() ?? originalQuery;
 
         // Return both: original (useful for keyword search) + translated (useful for vector search)
         return new[] { originalQuery, translated }.Distinct();

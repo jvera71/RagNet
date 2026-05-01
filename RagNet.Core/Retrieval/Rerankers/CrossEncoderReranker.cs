@@ -58,9 +58,9 @@ public class CrossEncoderReranker : IDocumentReranker
             try 
             {
                 // 2. Send to cross-encoder -> get relevance score
-                var response = await _crossEncoderClient.CompleteAsync(prompt, cancellationToken: ct);
+                var response = await _crossEncoderClient.GetResponseAsync(prompt, cancellationToken: ct);
                 
-                if (double.TryParse(response.Message.Text?.Trim(), out double score))
+                if (double.TryParse(response.Text?.Trim(), out double score))
                 {
                     scoredDocuments.Add((doc, score));
                 }

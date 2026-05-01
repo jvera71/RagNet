@@ -12,7 +12,7 @@ namespace RagNet.Core.Retrieval.Retrievers;
 public class VectorRetriever : IRetriever
 {
     private readonly IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator;
-    private readonly IVectorStoreRecordCollection<string, DefaultRagVectorRecord> _collection;
+    private readonly VectorStoreCollection<string, DefaultRagVectorRecord> _collection;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="VectorRetriever"/> class.
@@ -21,7 +21,7 @@ public class VectorRetriever : IRetriever
     /// <param name="collection">The vector store collection.</param>
     public VectorRetriever(
         IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator,
-        IVectorStoreRecordCollection<string, DefaultRagVectorRecord> collection)
+        VectorStoreCollection<string, DefaultRagVectorRecord> collection)
     {
         _embeddingGenerator = embeddingGenerator;
         _collection = collection;
@@ -40,14 +40,15 @@ public class VectorRetriever : IRetriever
         var queryEmbedding = await _embeddingGenerator.GenerateAsync(query, cancellationToken: ct);
 
         // 2. Search for similar vectors in MEVD
-        var searchResults = await _collection.VectorizedSearchAsync(
+        var searchResults = _collection.SearchAsync(
             queryEmbedding.Vector,
-            new VectorSearchOptions { Top = topK },
+            topK,
+            new VectorSearchOptions<DefaultRagVectorRecord>(),
             ct);
 
         // 3. Map results to RagDocument
         var results = new List<RagDocument>();
-        await foreach (var result in searchResults.Results.WithCancellation(ct))
+        await foreach (var result in searchResults.WithCancellation(ct))
         {
             var record = result.Record;
             
@@ -73,7 +74,7 @@ public class VectorRetriever : IRetriever
             }
 
             // 4. Include score in Metadata["_score"]
-            metadata["_score"] = result.Score;
+            metadata["_score"] = result.Score ?? 0.0;
 
             results.Add(new RagDocument(
                 Id: record.Id,
