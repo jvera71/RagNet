@@ -4,6 +4,11 @@
     <Project Path="Parsers/RagNet.Parsers.Office/RagNet.Parsers.Office.csproj" Id="ee067d19-5c2c-47f7-b588-7fd38b8ca768" />
     <Project Path="Parsers/RagNet.Parsers.Pdf/RagNet.Parsers.Pdf.csproj" Id="8e43d7e2-1c8f-4e3d-a0b6-6afc3540ce62" />
   </Folder>
+  <Folder Name="/Samples/">
+    <Project Path="Samples/RagNet.Samples.AppHost/RagNet.Samples.AppHost.csproj" />
+    <Project Path="Samples/RagNet.Samples.ServiceDefaults/RagNet.Samples.ServiceDefaults.csproj" />
+    <Project Path="Samples/RagNet.Samples.WebApi/RagNet.Samples.WebApi.csproj" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/RagNet.Abstractions.Tests/RagNet.Abstractions.Tests.csproj" />
     <Project Path="tests/RagNet.Benchmarks/RagNet.Benchmarks.csproj" />
