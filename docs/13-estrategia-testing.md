@@ -57,16 +57,7 @@ RagNet.slnx
 │   └── RagNet.Benchmarks/              ← Benchmarks de calidad RAG
 ```
 
-### Stack de Testing
 
-| Herramienta | Propósito | Versión |
-|------------|-----------|---------|
-| **xUnit** | Framework de testing | v2.9+ |
-| **Moq** | Mocking de interfaces | v4.20+ |
-| **FluentAssertions** | Aserciones legibles | v7.0+ |
-| **Microsoft.Extensions.DependencyInjection** | DI en integration tests | v8.0+ |
-| **Verify** | Snapshot testing para prompts | v26+ |
-| **BenchmarkDotNet** | Micro-benchmarks de rendimiento | v0.14+ |
 
 ---
 

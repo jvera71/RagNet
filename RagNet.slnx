@@ -4,6 +4,17 @@
     <Project Path="Parsers/RagNet.Parsers.Office/RagNet.Parsers.Office.csproj" Id="ee067d19-5c2c-47f7-b588-7fd38b8ca768" />
     <Project Path="Parsers/RagNet.Parsers.Pdf/RagNet.Parsers.Pdf.csproj" Id="8e43d7e2-1c8f-4e3d-a0b6-6afc3540ce62" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RagNet.Abstractions.Tests/RagNet.Abstractions.Tests.csproj" />
+    <Project Path="tests/RagNet.Benchmarks/RagNet.Benchmarks.csproj" />
+    <Project Path="tests/RagNet.Core.Tests/RagNet.Core.Tests.csproj" />
+    <Project Path="tests/RagNet.Integration.Tests/RagNet.Integration.Tests.csproj" />
+    <Project Path="tests/RagNet.Parsers.Markdown.Tests/RagNet.Parsers.Markdown.Tests.csproj" />
+    <Project Path="tests/RagNet.Parsers.Office.Tests/RagNet.Parsers.Office.Tests.csproj" />
+    <Project Path="tests/RagNet.Parsers.Pdf.Tests/RagNet.Parsers.Pdf.Tests.csproj" />
+    <Project Path="tests/RagNet.SemanticKernel.Tests/RagNet.SemanticKernel.Tests.csproj" />
+    <Project Path="tests/RagNet.Tests/RagNet.Tests.csproj" />
+  </Folder>
   <Project Path="RagNet.Abstractions/RagNet.Abstractions.csproj" Id="5413ffb9-86c6-4b37-b56c-6f5a8ffbf89d" />
   <Project Path="RagNet.Core/RagNet.Core.csproj" Id="1951ef85-8ad3-4a81-af21-54c754287b3b" />
   <Project Path="RagNet.SemanticKernel/RagNet.SemanticKernel.csproj" Id="e245432a-1e70-464d-8711-b508d21843e0" />
