@@ -15,11 +15,11 @@ public class HyDETransformerTests
         var mockChatClient = new Mock<IChatClient>();
         var generatedDoc = "This is a hypothetical documentation paragraph.";
         
-        mockChatClient.Setup(c => c.CompleteAsync(
-                It.IsAny<IList<ChatMessage>>(),
+        mockChatClient.Setup(c => c.GetResponseAsync(
+                It.IsAny<IEnumerable<ChatMessage>>(),
                 It.IsAny<ChatOptions>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ChatCompletion(new ChatMessage(ChatRole.Assistant, generatedDoc)));
+            .ReturnsAsync(new ChatResponse(new ChatMessage(ChatRole.Assistant, generatedDoc)));
 
         var transformer = new HyDETransformer(mockChatClient.Object);
         var originalQuery = "¿Qué es RAG?";
@@ -39,11 +39,11 @@ public class HyDETransformerTests
         var mockChatClient = new Mock<IChatClient>();
         var generatedDoc = "   "; // empty or whitespace
         
-        mockChatClient.Setup(c => c.CompleteAsync(
-                It.IsAny<IList<ChatMessage>>(),
+        mockChatClient.Setup(c => c.GetResponseAsync(
+                It.IsAny<IEnumerable<ChatMessage>>(),
                 It.IsAny<ChatOptions>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ChatCompletion(new ChatMessage(ChatRole.Assistant, generatedDoc)));
+            .ReturnsAsync(new ChatResponse(new ChatMessage(ChatRole.Assistant, generatedDoc)));
 
         var transformer = new HyDETransformer(mockChatClient.Object);
         var originalQuery = "¿Qué es RAG?";

@@ -21,19 +21,19 @@ public class SemanticKernelRagGeneratorTests
         
         // Mock the response from the LLM, simulating a citation to source [1]
         var responseText = "The answer is based on the provided text [1].";
-        mockChatCompletion.Setup(c => c.GetChatMessageContentAsync(
+        mockChatCompletion.Setup(c => c.GetChatMessageContentsAsync(
                 It.IsAny<ChatHistory>(), 
                 It.IsAny<PromptExecutionSettings>(), 
                 It.IsAny<Kernel>(), 
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ChatMessageContent(AuthorRole.Assistant, responseText));
+            .ReturnsAsync(new List<ChatMessageContent> { new ChatMessageContent(AuthorRole.Assistant, responseText) });
 
         // Create a real Kernel but with our mocked service
         IKernelBuilder builder = Kernel.CreateBuilder();
         builder.Services.AddSingleton<IChatCompletionService>(mockChatCompletion.Object);
         var kernel = builder.Build();
 
-        var options = Options.Create(new SemanticKernelGeneratorOptions
+        var options = Microsoft.Extensions.Options.Options.Create(new SemanticKernelGeneratorOptions
         {
             SystemPromptTemplate = "System: You are an assistant.",
             UserPromptTemplate = "Context: {{$context}} Query: {{$query}}",
@@ -63,7 +63,7 @@ public class SemanticKernelRagGeneratorTests
         response.Citations[0].DocumentId.Should().Be("doc-1");
         
         // Ensure the chat completion service was called
-        mockChatCompletion.Verify(c => c.GetChatMessageContentAsync(
+        mockChatCompletion.Verify(c => c.GetChatMessageContentsAsync(
             It.IsAny<ChatHistory>(), It.IsAny<PromptExecutionSettings>(), It.IsAny<Kernel>(), It.IsAny<CancellationToken>()), 
             Times.Once);
     }

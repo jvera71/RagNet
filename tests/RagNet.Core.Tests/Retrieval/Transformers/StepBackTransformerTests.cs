@@ -15,11 +15,11 @@ public class StepBackTransformerTests
         var mockChatClient = new Mock<IChatClient>();
         var generalizedQuery = "Conceptos generales de RAG";
         
-        mockChatClient.Setup(c => c.CompleteAsync(
-                It.IsAny<IList<ChatMessage>>(),
+        mockChatClient.Setup(c => c.GetResponseAsync(
+                It.IsAny<IEnumerable<ChatMessage>>(),
                 It.IsAny<ChatOptions>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ChatCompletion(new ChatMessage(ChatRole.Assistant, generalizedQuery)));
+            .ReturnsAsync(new ChatResponse(new ChatMessage(ChatRole.Assistant, generalizedQuery)));
 
         var transformer = new StepBackTransformer(mockChatClient.Object);
         var originalQuery = "¿Cómo se configura el chunker en RAGNet?";
@@ -39,11 +39,11 @@ public class StepBackTransformerTests
         // Arrange
         var mockChatClient = new Mock<IChatClient>();
         
-        mockChatClient.Setup(c => c.CompleteAsync(
-                It.IsAny<IList<ChatMessage>>(),
+        mockChatClient.Setup(c => c.GetResponseAsync(
+                It.IsAny<IEnumerable<ChatMessage>>(),
                 It.IsAny<ChatOptions>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ChatCompletion(new ChatMessage(ChatRole.Assistant, "")));
+            .ReturnsAsync(new ChatResponse(new ChatMessage(ChatRole.Assistant, "")));
 
         var transformer = new StepBackTransformer(mockChatClient.Object);
         var originalQuery = "¿Cómo se configura el chunker en RAGNet?";

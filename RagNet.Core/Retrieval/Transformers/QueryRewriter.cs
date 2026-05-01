@@ -36,7 +36,7 @@ Original query: ""{originalQuery}""
 Rewritten query:";
 
         var response = await _chatClient.GetResponseAsync(prompt, cancellationToken: ct);
-        var rewrittenQuery = response.Text?.Trim() ?? originalQuery;
+        var rewrittenQuery = string.IsNullOrWhiteSpace(response.Text) ? originalQuery : response.Text.Trim();
 
         return new[] { rewrittenQuery };
     }

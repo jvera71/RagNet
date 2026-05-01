@@ -15,11 +15,11 @@ public class QueryRewriterTests
         var mockChatClient = new Mock<IChatClient>();
         var rewrittenQuery = "Configuración avanzada del particionado semántico en C#";
         
-        mockChatClient.Setup(c => c.CompleteAsync(
-                It.IsAny<IList<ChatMessage>>(),
+        mockChatClient.Setup(c => c.GetResponseAsync(
+                It.IsAny<IEnumerable<ChatMessage>>(),
                 It.IsAny<ChatOptions>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ChatCompletion(new ChatMessage(ChatRole.Assistant, rewrittenQuery)));
+            .ReturnsAsync(new ChatResponse(new ChatMessage(ChatRole.Assistant, rewrittenQuery)));
 
         var transformer = new QueryRewriter(mockChatClient.Object);
         var originalQuery = "como configuro el chunker?";
@@ -38,11 +38,11 @@ public class QueryRewriterTests
         // Arrange
         var mockChatClient = new Mock<IChatClient>();
         
-        mockChatClient.Setup(c => c.CompleteAsync(
-                It.IsAny<IList<ChatMessage>>(),
+        mockChatClient.Setup(c => c.GetResponseAsync(
+                It.IsAny<IEnumerable<ChatMessage>>(),
                 It.IsAny<ChatOptions>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ChatCompletion(new ChatMessage(ChatRole.Assistant, "   ")));
+            .ReturnsAsync(new ChatResponse(new ChatMessage(ChatRole.Assistant, "   ")));
 
         var transformer = new QueryRewriter(mockChatClient.Object);
         var originalQuery = "como configuro el chunker?";
