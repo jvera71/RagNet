@@ -10,8 +10,8 @@ namespace RagNet.Core.Retrieval.Retrievers;
 /// </summary>
 public class HybridRetriever : IRetriever
 {
-    private readonly VectorRetriever _vectorRetriever;
-    private readonly KeywordRetriever _keywordRetriever;
+    private readonly IRetriever _vectorRetriever;
+    private readonly IRetriever _keywordRetriever;
     private readonly HybridRetrieverOptions _options;
 
     /// <summary>
@@ -21,8 +21,8 @@ public class HybridRetriever : IRetriever
     /// <param name="keywordRetriever">The keyword retriever instance.</param>
     /// <param name="options">The hybrid retriever options.</param>
     public HybridRetriever(
-        VectorRetriever vectorRetriever,
-        KeywordRetriever keywordRetriever,
+        IRetriever vectorRetriever,
+        IRetriever keywordRetriever,
         IOptions<HybridRetrieverOptions> options)
     {
         _vectorRetriever = vectorRetriever;
