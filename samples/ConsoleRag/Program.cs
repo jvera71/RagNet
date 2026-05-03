@@ -133,7 +133,7 @@ while (true)
             Console.WriteLine("\n  Sources:");
             foreach (var citation in response.Citations)
             {
-                Console.WriteLine($"    · [{citation.DocumentId}] \"{citation.Excerpt[..Math.Min(120, citation.Excerpt.Length)]}...\"");
+                Console.WriteLine($"    · [{citation.DocumentId}] \"{citation.SourceContent[..Math.Min(120, citation.SourceContent.Length)]}...\"");
             }
         }
 

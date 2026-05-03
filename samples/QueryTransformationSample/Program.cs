@@ -46,9 +46,11 @@ builder.Services.AddTransient<TranslationTransformer>();
 builder.Services.AddTransient<CompositeQueryTransformer>(sp =>
 {
     // Compose: rewrite first, then expand with step-back
-    return new CompositeQueryTransformer(
+    return new CompositeQueryTransformer(new IQueryTransformer[]
+    {
         sp.GetRequiredService<QueryRewriter>(),
-        sp.GetRequiredService<StepBackTransformer>());
+        sp.GetRequiredService<StepBackTransformer>()
+    });
 });
 
 var host = builder.Build();
