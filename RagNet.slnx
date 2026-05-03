@@ -1,0 +1,28 @@
+<Solution>
+  <Folder Name="/Samples/" />
+  <Folder Name="/Samples/ConsoleIngestion/">
+    <Project Path="Samples/ConsoleIngestion/RagNet.Samples.ConsoleIngestion.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/RagNet.Abstractions/RagNet.Abstractions.csproj" />
+    <Project Path="src/RagNet.Core/RagNet.Core.csproj" />
+    <Project Path="src/RagNet.SemanticKernel/RagNet.SemanticKernel.csproj" />
+    <Project Path="src/RagNet/RagNet.csproj" />
+  </Folder>
+  <Folder Name="/src/Parsers/">
+    <Project Path="src/Parsers/RagNet.Parsers.Markdown/RagNet.Parsers.Markdown.csproj" />
+    <Project Path="src/Parsers/RagNet.Parsers.Office/RagNet.Parsers.Office.csproj" />
+    <Project Path="src/Parsers/RagNet.Parsers.Pdf/RagNet.Parsers.Pdf.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RagNet.Abstractions.Tests/RagNet.Abstractions.Tests.csproj" />
+    <Project Path="tests/RagNet.Benchmarks/RagNet.Benchmarks.csproj" />
+    <Project Path="tests/RagNet.Core.Tests/RagNet.Core.Tests.csproj" />
+    <Project Path="tests/RagNet.Integration.Tests/RagNet.Integration.Tests.csproj" />
+    <Project Path="tests/RagNet.Parsers.Markdown.Tests/RagNet.Parsers.Markdown.Tests.csproj" />
+    <Project Path="tests/RagNet.Parsers.Office.Tests/RagNet.Parsers.Office.Tests.csproj" />
+    <Project Path="tests/RagNet.Parsers.Pdf.Tests/RagNet.Parsers.Pdf.Tests.csproj" />
+    <Project Path="tests/RagNet.SemanticKernel.Tests/RagNet.SemanticKernel.Tests.csproj" />
+    <Project Path="tests/RagNet.Tests/RagNet.Tests.csproj" />
+  </Folder>
+</Solution>

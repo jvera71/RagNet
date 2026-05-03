@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -23,11 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RagNet\RagNet.csproj" />
-    <ProjectReference Include="..\..\RagNet.Core\RagNet.Core.csproj" />
-    <ProjectReference Include="..\..\RagNet.Abstractions\RagNet.Abstractions.csproj" />
-    <ProjectReference Include="..\..\RagNet.SemanticKernel\RagNet.SemanticKernel.csproj" />
-    <ProjectReference Include="..\..\Parsers\RagNet.Parsers.Markdown\RagNet.Parsers.Markdown.csproj" />
+    <ProjectReference Include="..\..\src\RagNet\RagNet.csproj" />
+    <ProjectReference Include="..\..\src\RagNet.Core\RagNet.Core.csproj" />
+    <ProjectReference Include="..\..\src\RagNet.Abstractions\RagNet.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\RagNet.SemanticKernel\RagNet.SemanticKernel.csproj" />
+    <ProjectReference Include="..\..\src\Parsers\RagNet.Parsers.Markdown\RagNet.Parsers.Markdown.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RagNet\RagNet.csproj" />
-    <ProjectReference Include="..\..\RagNet.Core\RagNet.Core.csproj" />
+    <ProjectReference Include="..\..\src\RagNet\RagNet.csproj" />
+    <ProjectReference Include="..\..\src\RagNet.Core\RagNet.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

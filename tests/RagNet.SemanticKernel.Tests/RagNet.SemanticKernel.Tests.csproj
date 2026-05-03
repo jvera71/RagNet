@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RagNet.SemanticKernel\RagNet.SemanticKernel.csproj" />
+    <ProjectReference Include="..\..\src\RagNet.SemanticKernel\RagNet.SemanticKernel.csproj" />
   </ItemGroup>
 
 </Project>
