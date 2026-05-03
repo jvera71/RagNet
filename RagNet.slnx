@@ -1,7 +1,22 @@
 <Solution>
   <Folder Name="/Samples/" />
   <Folder Name="/Samples/ConsoleIngestion/">
-    <Project Path="Samples/ConsoleIngestion/RagNet.Samples.ConsoleIngestion.csproj" />
+    <Project Path="samples/ConsoleIngestion/RagNet.Samples.ConsoleIngestion.csproj" />
+  </Folder>
+  <Folder Name="/Samples/ConsoleRetrieval/">
+    <Project Path="samples/ConsoleRetrieval/RagNet.Samples.ConsoleRetrieval.csproj" />
+  </Folder>
+  <Folder Name="/Samples/ConsoleRag/">
+    <Project Path="samples/ConsoleRag/RagNet.Samples.ConsoleRag.csproj" />
+  </Folder>
+  <Folder Name="/Samples/HybridRetrievalSample/">
+    <Project Path="samples/HybridRetrievalSample/RagNet.Samples.HybridRetrieval.csproj" />
+  </Folder>
+  <Folder Name="/Samples/QueryTransformationSample/">
+    <Project Path="samples/QueryTransformationSample/RagNet.Samples.QueryTransformation.csproj" />
+  </Folder>
+  <Folder Name="/Samples/SemanticChunkingComparison/">
+    <Project Path="samples/SemanticChunkingComparison/RagNet.Samples.SemanticChunkingComparison.csproj" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/RagNet.Abstractions/RagNet.Abstractions.csproj" />
